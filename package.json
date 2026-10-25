@@ -1,0 +1,26 @@
+{
+  "name": "backend-casa-de-los-vientos",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "photos": "node scripts/processPhotos.js"
+  },
+  "author": "Motrel Alejandro Miguel",
+  "license": "ISC",
+  "description": "Backend de La Casa de los Vientos: fotos y contacto",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "express-rate-limit": "^8.7.1",
+    "mongoose": "^9.11.4",
+    "nodemailer": "^10.2.1",
+    "sharp": "^0.35.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

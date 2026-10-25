@@ -1,0 +1,6 @@
+node_modules/
+.env
+storage/
+# Originales: se ignoran las fotos pero se conserva el árbol de carpetas (.gitkeep)
+photos-originals/**/*.*
+!photos-originals/**/.gitkeep
