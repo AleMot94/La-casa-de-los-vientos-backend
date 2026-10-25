@@ -7,7 +7,7 @@ import mongoose from "mongoose"
 import { connectDB } from "../src/config/db.js"
 import { ORIGINALS_DIR, PHOTOS_DIR } from "../src/config/paths.js"
 import { PHOTO_DAO } from "../src/DAO/photoDAO.js"
-import { EXPECTED_IDS, HERO_ID, WIDTHS, HERO_WIDTHS } from "./photoCatalog.js"
+import { EXPECTED_IDS, HERO_ID, WIDTHS, HERO_WIDTHS, isKnownId } from "./photoCatalog.js"
 
 // Uso: npm run photos
 // Lee photos-originals/, genera las variantes (AVIF + WebP en varios anchos) en PHOTOS_DIR
@@ -73,7 +73,7 @@ const run = async () => {
             console.warn(`HEIC: ${id}${ext} se saltea, pasalo a JPG antes`)
         } else if (!SUPPORTED.includes(ext)) {
             console.warn(`Formato no soportado, se ignora: ${id}${ext}`)
-        } else if (!EXPECTED_IDS.includes(id)) {
+        } else if (!isKnownId(id)) {
             console.warn(`Id desconocido, se ignora: ${id}${ext} (revisá el nombre de la carpeta o del archivo)`)
         } else if (found.has(id)) {
             console.warn(`Hay dos archivos para ${id}, se usa ${path.basename(found.get(id))} y se ignora ${name}`)
@@ -94,8 +94,19 @@ const run = async () => {
         }
     }
 
+    // Fotos por lugar (carpeta), sin contar la portada
+    const perPlace = {}
+    for (const id of found.keys()) {
+        if (id.endsWith("/portada")) continue
+        const place = id.split("/").slice(0, -1).join("/") || id
+        perPlace[place] = (perPlace[place] || 0) + 1
+    }
+    console.log("\nFotos por lugar:")
+    for (const [place, count] of Object.entries(perPlace)) console.log(`  ${place}: ${count}`)
+
+    // El front pide como mínimo EXPECTED_IDS; las que sobran se procesan igual
     const missing = EXPECTED_IDS.filter((id) => !found.has(id))
-    console.log(`\nProcesadas: ${found.size - failed} de ${EXPECTED_IDS.length} · con error: ${failed} · faltan: ${missing.length}`)
+    console.log(`\nProcesadas: ${found.size - failed} de ${found.size} · con error: ${failed} · faltan de las que pide el front: ${missing.length}`)
     if (missing.length > 0) console.log("Faltan:\n  " + missing.join("\n  "))
     await mongoose.disconnect()
 }

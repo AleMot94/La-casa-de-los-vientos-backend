@@ -4,3 +4,5 @@ storage/
 # Originales: se ignoran las fotos pero se conserva el árbol de carpetas (.gitkeep)
 photos-originals/**/*.*
 !photos-originals/**/.gitkeep
+# Carpeta de imágenes de origen (repo aparte, pesa mucho): se copian a photos-originals/ y no se versionan acá
+los-vientos-imagenes/
