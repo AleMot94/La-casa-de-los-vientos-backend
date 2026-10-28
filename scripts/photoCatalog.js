@@ -7,11 +7,11 @@ const FACILITY_FOLDERS = ["patios", "desayunador", "pileta", "anfitriones"]
 const photoIds = (folder, count) =>
     Array.from({ length: count }, (_, i) => `${folder}/${String(i + 1).padStart(2, "0")}`)
 
-// Lo MÍNIMO que pide el front hoy (PHOTOS_PER_ROOM = 6, PHOTOS_PER_FACILITY = 5): 1 + 1 + 42 + 20 = 64.
+// Lo MÍNIMO que pide el front hoy (PHOTOS_PER_ROOM = 6, PHOTOS_PER_FACILITY = 5, 3 en el carrusel de about): 1 + 3 + 42 + 20 = 66.
 // Se usa solo para avisar qué falta. Puede haber más fotos por lugar (ver isKnownId).
 export const EXPECTED_IDS = [
     HERO_ID,
-    "about/01",
+    ...photoIds("about", 3),
     ...ROOM_FOLDERS.flatMap((folder) => photoIds(`rooms/${folder}`, 6)),
     ...FACILITY_FOLDERS.flatMap((folder) => photoIds(`facilities/${folder}`, 5)),
 ]

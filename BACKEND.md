@@ -56,11 +56,11 @@ Siempre con 2 dígitos (`01`, no `1`).
 | Zona | Ids |
 |---|---|
 | Hero | `hero` |
-| Conocenos | `about/01` |
+| Conocenos (3 fotos) | `about/01` … `about/03` |
 | Habitaciones (6 fotos cada una) | `rooms/<carpeta>/01` … `/06`, con las carpetas `01-sonqoy`, `02-el-fuego`, `03-los-buhos`, `04-el-amanecer`, `05-los-teros`, `06-el-atardecer`, `07-huayra-huasi` |
 | Instalaciones (5 fotos cada una) | `facilities/<carpeta>/01` … `/05`, con las carpetas `patios`, `desayunador`, `pileta`, `anfitriones` |
 
-Total esperado: 1 + 1 + 42 + 20 = 64 fotos. Salen de `src/data/rooms.ts`, `src/data/facilities.ts` y `src/data/photoIds.ts`.
+Total esperado: 1 + 3 + 42 + 20 = 66 fotos. Salen de `src/data/rooms.ts`, `src/data/facilities.ts` y `src/data/photoIds.ts`.
 
 ### Qué hace el front según lo que llegue
 
